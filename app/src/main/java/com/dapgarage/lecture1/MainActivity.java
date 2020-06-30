@@ -14,19 +14,24 @@ public class MainActivity extends AppCompatActivity {
     EditText inputEmail;
     EditText inputPassword;
 
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+    SharedPreferences authSharedPreferences;
+    SharedPreferences.Editor authEditor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
+        authSharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
 
         // Create/Write, Delete/Remove, Update
-        editor = sharedPreferences.edit();
 
+        authEditor = authSharedPreferences.edit();
+
+        if (isUserAlreadyLoggedIn()) {
+            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            finish();
+        }
 
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
@@ -40,10 +45,15 @@ public class MainActivity extends AppCompatActivity {
     public void moveToHome(View view) {
 
         Intent abc = new Intent(MainActivity.this, HomeActivity.class);
-        editor.putString("email" , inputEmail.getText().toString());
-        editor.putString("password" , inputPassword.getText().toString());
-        editor.commit();
+        authEditor.putString("email", inputEmail.getText().toString());
+        authEditor.putString("password", inputPassword.getText().toString());
+        authEditor.putBoolean("isLogin", true);
+        authEditor.commit();
         startActivity(abc);
+    }
+
+    private boolean isUserAlreadyLoggedIn() {
+        return authSharedPreferences.getBoolean("isLogin", false);
     }
 
 }

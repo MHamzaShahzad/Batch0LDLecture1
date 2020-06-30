@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
 public class HomeActivity extends AppCompatActivity {
@@ -19,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        sharedPreferences = getSharedPreferences("AppData", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
 
         // Create/Write, Delete/Remove, Update
         editor = sharedPreferences.edit();
@@ -30,6 +31,14 @@ public class HomeActivity extends AppCompatActivity {
 
         Toast.makeText(this, email + " : " + password, Toast.LENGTH_LONG).show();
         showDialogMessage("User Details", "You logged in as " + email);
+    }
+
+    public void logout(View view) {
+
+        editor.clear().commit();
+        startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        finish();
+
     }
 
     private void showDialogMessage(String title, String message) {
@@ -66,5 +75,6 @@ public class HomeActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
 
 }
