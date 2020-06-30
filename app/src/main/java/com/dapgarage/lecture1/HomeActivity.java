@@ -29,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         String password = sharedPreferences.getString("password", "");
 
         Toast.makeText(this, email + " : " + password, Toast.LENGTH_LONG).show();
-        showDialogMessage("User Detail", "You logged in as " + email);
+        showDialogMessage("User Details", "You logged in as " + email);
     }
 
     private void showDialogMessage(String title, String message) {
