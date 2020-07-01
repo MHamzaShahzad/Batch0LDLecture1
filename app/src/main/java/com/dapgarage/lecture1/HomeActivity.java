@@ -83,7 +83,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void showNotification(View view){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, "channel");
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, "channel_1");
         builder.setSmallIcon(R.drawable.ic_launcher_background);
         builder.setContentTitle("Title");
         builder.setContentText("Notification Description");
