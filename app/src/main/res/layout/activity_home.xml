@@ -18,7 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Show Notification"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/showDialogBox"
         android:onClick="showNotification"/>
+
+    <Button
+        android:id="@+id/showDialogBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Dialog"
+        android:layout_alignParentBottom="true"
+        android:onClick="showDialogMessage"/>
 
 </RelativeLayout>

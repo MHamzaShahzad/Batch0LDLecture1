@@ -20,6 +20,8 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
 
+    String email, password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,12 +33,11 @@ public class HomeActivity extends AppCompatActivity {
         editor = sharedPreferences.edit();
 
 
-        String email = sharedPreferences.getString("email", "");
-        String password = sharedPreferences.getString("password", "");
+        email = sharedPreferences.getString("email", "");
+        password = sharedPreferences.getString("password", "");
 
         Toast.makeText(this, email + " : " + password, Toast.LENGTH_LONG).show();
 
-        showDialogMessage("User Details", "You logged in as " + email);
     }
 
     public void logout(View view) {
@@ -47,13 +48,13 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void showDialogMessage(String title, String message) {
+    public void showDialogMessage(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
 
         builder.setCancelable(false);
-        builder.setTitle(title);
-        builder.setMessage(message);
+        builder.setTitle("Your Info");
+        builder.setMessage("You logged in as " + email);
         builder.setIcon(R.drawable.ic_launcher_background);
         // method 1
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
