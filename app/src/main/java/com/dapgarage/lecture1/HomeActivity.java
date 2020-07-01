@@ -2,10 +2,15 @@ package com.dapgarage.lecture1;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -30,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
         String password = sharedPreferences.getString("password", "");
 
         Toast.makeText(this, email + " : " + password, Toast.LENGTH_LONG).show();
+
         showDialogMessage("User Details", "You logged in as " + email);
     }
 
@@ -76,5 +82,31 @@ public class HomeActivity extends AppCompatActivity {
         dialog.show();
     }
 
+    public void showNotification(View view){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, "channel");
+        builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setContentTitle("Title");
+        builder.setContentText("Notification Description");
+        builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        createNotificationChannel();
+
+
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(HomeActivity.this);
+        managerCompat.notify(1, builder.build());
+
+    }
+
+    private void createNotificationChannel(){
+        int currentDeviceOSVersion = Build.VERSION.SDK_INT;
+        if (currentDeviceOSVersion >= Build.VERSION_CODES.O){
+            // Create Channel
+            NotificationChannel channel = new NotificationChannel("channel_1", "channel_1_name", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("channel_1_description");
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+    }
 
 }
