@@ -2,18 +2,28 @@ package com.dapgarage.lecture1;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,6 +31,15 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String email, password;
+
+    @BindView(R.id.notification_title)
+    EditText notification_title;
+
+    @BindView(R.id.notification_description)
+    EditText notification_description;
+
+    @BindView(R.id.home_page_image)
+    ImageView home_page_image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +57,16 @@ public class HomeActivity extends AppCompatActivity {
 
         Toast.makeText(this, email + " : " + password, Toast.LENGTH_LONG).show();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Picasso.get()
+                .load("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg")
+                .fit()
+                .centerInside()
+                .into(home_page_image);
     }
 
     public void logout(View view) {
@@ -76,31 +105,30 @@ public class HomeActivity extends AppCompatActivity {
                 // body
             }
         };
-        builder.setPositiveButton("Ok",  listener);
+        builder.setPositiveButton("Ok", listener);
 
         AlertDialog dialog = builder.create();
 
         dialog.show();
     }
 
-    public void showNotification(View view){
+    public void showNotification(View view) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(HomeActivity.this, "channel_1");
         builder.setSmallIcon(R.drawable.ic_launcher_background);
-        builder.setContentTitle("Title");
-        builder.setContentText("Notification Description");
+        builder.setContentTitle(notification_title.getText().toString());
+        builder.setContentText(notification_description.getText().toString());
         builder.setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         createNotificationChannel();
-
 
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(HomeActivity.this);
         managerCompat.notify(1, builder.build());
 
     }
 
-    private void createNotificationChannel(){
+    private void createNotificationChannel() {
         int currentDeviceOSVersion = Build.VERSION.SDK_INT;
-        if (currentDeviceOSVersion >= Build.VERSION_CODES.O){
+        if (currentDeviceOSVersion >= Build.VERSION_CODES.O) {
             // Create Channel
             NotificationChannel channel = new NotificationChannel("channel_1", "channel_1_name", NotificationManager.IMPORTANCE_DEFAULT);
             channel.setDescription("channel_1_description");
@@ -108,6 +136,26 @@ public class HomeActivity extends AppCompatActivity {
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
         }
+    }
+
+
+
+    public void getAppPermissions(View view) {
+
+        if (!checkPermission()){
+            requestPermission();
+        }
+
+    }
+
+    private boolean checkPermission() {
+
+        return ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission(){
+
+        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.CAMERA}, 101);
     }
 
 }

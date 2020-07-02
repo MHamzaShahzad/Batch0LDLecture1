@@ -4,29 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="20dp"
     tools:context=".HomeActivity">
-
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="logout"
-        android:text="Logout"
-        android:textAllCaps="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Notification"
         android:layout_above="@id/showDialogBox"
-        android:onClick="showNotification"/>
+        android:onClick="showNotification"
+        android:text="Show Notification" />
 
     <Button
         android:id="@+id/showDialogBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show Dialog"
+        android:layout_above="@id/btnPermission"
+        android:onClick="showDialogMessage"
+        android:text="Show Dialog" />
+
+    <Button
+        android:id="@+id/btnPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnLogout"
+        android:text="Get Permission"
+        android:onClick="getAppPermissions"
+        />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:onClick="showDialogMessage"/>
+        android:onClick="logout"
+        android:text="Logout"
+        android:textAllCaps="false" />
+
+    <ImageView
+        android:id="@+id/home_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="5dp"
+        />
+
+    <LinearLayout
+        android:layout_below="@id/home_page_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/notification_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notification Title" />
+
+        <EditText
+            android:id="@+id/notification_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Notification Description" />
+
+    </LinearLayout>
 
 </RelativeLayout>
