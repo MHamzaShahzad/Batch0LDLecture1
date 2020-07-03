@@ -1,5 +1,6 @@
 package com.dapgarage.lecture1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,9 +8,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +26,13 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -31,6 +40,7 @@ public class HomeActivity extends AppCompatActivity {
     SharedPreferences.Editor editor;
 
     String email, password;
+    static final int MULTIPLE_PERMISSIONS_REQUEST_CODE = 99;
 
     @BindView(R.id.notification_title)
     EditText notification_title;
@@ -45,12 +55,12 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
         sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
 
         // Create/Write, Delete/Remove, Update
         editor = sharedPreferences.edit();
-
 
         email = sharedPreferences.getString("email", "");
         password = sharedPreferences.getString("password", "");
@@ -138,24 +148,65 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
-
     public void getAppPermissions(View view) {
 
-        if (!checkPermission()){
-            requestPermission();
+        requestMultiplePermissions();
+
+        // More Optimized and flexible way
+       /* requestMultiplePermissionsOptimized(new String[] {
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_SMS
+        });*/
+
+    }
+
+    private void requestMultiplePermissions() {
+
+        List<String> permissionsList = new ArrayList<>();
+
+        int camera_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA);
+        int location_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
+        int read_sms_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_SMS);
+
+        if (camera_permission == PackageManager.PERMISSION_DENIED) {
+            permissionsList.add(Manifest.permission.CAMERA);
         }
 
+        if (location_permission == PackageManager.PERMISSION_DENIED) {
+            permissionsList.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
+        if (read_sms_permission == PackageManager.PERMISSION_DENIED) {
+            permissionsList.add(Manifest.permission.READ_SMS);
+        }
+
+        if (permissionsList.size() > 0) {
+            String[] permissions = permissionsList.toArray(new String[0]);
+            ActivityCompat.requestPermissions(HomeActivity.this, permissions, MULTIPLE_PERMISSIONS_REQUEST_CODE);
+        } else
+            Toast.makeText(HomeActivity.this, "All permissions already granted!", Toast.LENGTH_SHORT).show();
     }
 
-    private boolean checkPermission() {
-
-        return ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED;
+    private void requestMultiplePermissionsOptimized(String[] permissionsList) {
+        List<String> requestPermissions = new ArrayList<>();
+        for (String permission : permissionsList) {
+            if (ContextCompat.checkSelfPermission(HomeActivity.this, permission) == PackageManager.PERMISSION_DENIED)
+                requestPermissions.add(permission);
+        }
+        if (requestPermissions.size() > 0) {
+            String[] permissions = requestPermissions.toArray(new String[0]);
+            ActivityCompat.requestPermissions(HomeActivity.this, permissions, MULTIPLE_PERMISSIONS_REQUEST_CODE);
+        } else
+            Toast.makeText(HomeActivity.this, "All permissions already granted!", Toast.LENGTH_SHORT).show();
     }
 
-    private void requestPermission(){
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        ActivityCompat.requestPermissions(HomeActivity.this, new String[]{Manifest.permission.CAMERA}, 101);
+        // YOUR TASK
+
     }
 
 }
