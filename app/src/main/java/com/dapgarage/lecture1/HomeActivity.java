@@ -55,6 +55,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         ButterKnife.bind(this);
 
         sharedPreferences = getSharedPreferences("Authentication", MODE_PRIVATE);
@@ -209,4 +210,7 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    public void moveToFragmentHolder(View view) {
+        startActivity(new Intent(HomeActivity.this, FragmentHolderActivity.class));
+    }
 }

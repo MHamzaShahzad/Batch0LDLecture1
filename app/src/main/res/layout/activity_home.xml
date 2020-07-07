@@ -35,9 +35,18 @@
         android:id="@+id/btnLogout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btnFragmentHolder"
         android:onClick="logout"
         android:text="Logout"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnFragmentHolder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:onClick="moveToFragmentHolder"
+        android:text="Fragment Holder"
         android:textAllCaps="false" />
 
     <ImageView

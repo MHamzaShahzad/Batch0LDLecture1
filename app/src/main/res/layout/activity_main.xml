@@ -23,9 +23,8 @@
         android:id="@+id/input_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
         android:hint="Enter your password"
-        />
+        android:inputType="textPassword" />
 
     <Button
         android:layout_width="wrap_content"
