@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".HomeActivity">
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Button
+    <RelativeLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/showDialogBox"
-        android:onClick="showNotification"
-        android:text="Show Notification" />
+        android:padding="20dp"
+        tools:context=".HomeActivity">
 
-    <Button
-        android:id="@+id/showDialogBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/btnPermission"
-        android:onClick="showDialogMessage"
-        android:text="Show Dialog" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/showDialogBox"
+            android:onClick="showNotification"
+            android:text="Show Notification" />
+
+        <Button
+            android:id="@+id/showDialogBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btnPermission"
+            android:onClick="showDialogMessage"
+            android:text="Show Dialog" />
 
     <Button
         android:id="@+id/btnPermission"
@@ -44,10 +48,28 @@
         android:id="@+id/btnFragmentHolder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:onClick="moveToFragmentHolder"
+        android:layout_above="@id/btnRecyclerActivity"
         android:text="Fragment Holder"
         android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btnRecyclerActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/btnTabActivity"
+        android:onClick="moveToRecyclerActivity"
+        android:text="Recycler Example"
+        android:textAllCaps="false" />
+
+        <Button
+            android:id="@+id/btnTabActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:onClick="moveToTabActivity"
+            android:text="Tab Layout Example"
+            android:textAllCaps="false" />
 
     <ImageView
         android:id="@+id/home_page_image"
@@ -77,3 +99,5 @@
     </LinearLayout>
 
 </RelativeLayout>
+
+</ScrollView>

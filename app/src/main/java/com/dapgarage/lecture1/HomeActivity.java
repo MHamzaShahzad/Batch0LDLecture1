@@ -213,4 +213,12 @@ public class HomeActivity extends AppCompatActivity {
     public void moveToFragmentHolder(View view) {
         startActivity(new Intent(HomeActivity.this, FragmentHolderActivity.class));
     }
+
+    public void moveToRecyclerActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, RecyclerActivity.class));
+    }
+
+    public void moveToTabActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, TabActivity.class));
+    }
 }
