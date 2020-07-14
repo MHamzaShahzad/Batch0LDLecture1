@@ -20,12 +20,14 @@
             android:layout_gravity="center_horizontal"/>
 
         <EditText
+            android:id="@+id/registerFirstNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:hint="First Name"/>
 
         <EditText
+            android:id="@+id/registerLastNameInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -39,16 +41,19 @@
             android:hint="Email Address"/>
 
         <EditText
+            android:id="@+id/registerPhoneNumberInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="Phone Number"/>
 
         <EditText
+            android:id="@+id/registerCNICInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             android:hint="CNIC"/>
+
         <EditText
             android:id="@+id/registerPasswordInput"
             android:layout_width="match_parent"
@@ -57,12 +62,14 @@
             android:hint="Password"/>
 
         <EditText
+            android:id="@+id/registerConfirmPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Confirm Password"/>
 
         <EditText
+            android:id="@+id/registerAddressInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
