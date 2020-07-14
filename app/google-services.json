@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "787063879344",
+    "firebase_url": "https://lecture-1-5c025.firebaseio.com",
+    "project_id": "lecture-1-5c025",
+    "storage_bucket": "lecture-1-5c025.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787063879344:android:4eca96c26021f704766d75",
+        "android_client_info": {
+          "package_name": "com.dapgarage.lecture1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787063879344-7v4hj57ogotjb3guei61r9dah943jfnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBdwGp7hShOKn6o0lZZWLexQPZMbDYGTY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787063879344-7v4hj57ogotjb3guei61r9dah943jfnk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

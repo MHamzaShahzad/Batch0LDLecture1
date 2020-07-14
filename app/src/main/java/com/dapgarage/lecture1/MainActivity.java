@@ -1,5 +1,6 @@
 package com.dapgarage.lecture1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -7,6 +8,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -16,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     SharedPreferences authSharedPreferences;
     SharedPreferences.Editor authEditor;
+
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         // Create/Write, Delete/Remove, Update
 
         authEditor = authSharedPreferences.edit();
+        mAuth = FirebaseAuth.getInstance();
 
         if (isUserAlreadyLoggedIn()) {
             startActivity(new Intent(MainActivity.this, HomeActivity.class));
@@ -35,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = findViewById(R.id.input_password);
+
     }
 
     public void moveToRegister(View view) {
@@ -44,16 +56,36 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveToHome(View view) {
 
-        Intent abc = new Intent(MainActivity.this, HomeActivity.class);
-        authEditor.putString("email", inputEmail.getText().toString());
-        authEditor.putString("password", inputPassword.getText().toString());
-        authEditor.putBoolean("isLogin", true);
-        authEditor.commit();
-        startActivity(abc);
+        String email = inputEmail.getText().toString();
+        String password = inputPassword.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(
+                new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Intent abc = new Intent(MainActivity.this, HomeActivity.class);
+                            authEditor.putString("email", email);
+                            authEditor.putString("password", password);
+                            //authEditor.putBoolean("isLogin", true);
+                            authEditor.commit();
+                            startActivity(abc);
+                            finish();
+                        }else{
+                            Toast.makeText(MainActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+        );
+
+
+
     }
 
     private boolean isUserAlreadyLoggedIn() {
-        return authSharedPreferences.getBoolean("isLogin", false);
+        //return authSharedPreferences.getBoolean("isLogin", false);
+        FirebaseUser user = mAuth.getCurrentUser();
+        return user != null;
     }
 
 }
