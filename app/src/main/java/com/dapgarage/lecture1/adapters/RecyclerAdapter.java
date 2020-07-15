@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dapgarage.lecture1.R;
+import com.dapgarage.lecture1.models.FirebaseDatabaseUser;
 import com.dapgarage.lecture1.models.User;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import butterknife.ButterKnife;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<Holder>{
 
-    List<User> list;
+    List<FirebaseDatabaseUser> list;
     Context context;
 
-    public RecyclerAdapter(List<User> list) {
+    public RecyclerAdapter(List<FirebaseDatabaseUser> list) {
         this.list = list;
     }
 
@@ -38,9 +39,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<Holder>{
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
 
-        User user = list.get(position);
+        FirebaseDatabaseUser user = list.get(position);
 
-        holder.recyclerItemText.setText(user.getName() + "\n" + user.getEmail() + "\n" + user.getAge()  + "\n" + "-------\n");
+        holder.profileFirstName.setText(user.getFirstName());
+        holder.profileLastName.setText(user.getLastName());
+        holder.profileEmail.setText(user.getEmail());
+        holder.profilePhoneNumber.setText(user.getPhoneNumber());
+        holder.profileAddress.setText(user.getAddress());
+        holder.profileCNIC.setText(user.getCnic());
 
     }
 
@@ -53,11 +59,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<Holder>{
 class Holder extends RecyclerView.ViewHolder {
 
 
-    TextView recyclerItemText;
+    TextView profileFirstName, profileLastName, profileEmail, profilePhoneNumber, profileAddress, profileCNIC;
 
     public Holder(@NonNull View itemView) {
         super(itemView);
-        recyclerItemText = itemView.findViewById(R.id.recyclerItemText);
+
+        profileFirstName = itemView.findViewById(R.id.profileFirstName);
+        profileLastName = itemView.findViewById(R.id.profileLastName);
+        profileEmail = itemView.findViewById(R.id.profileEmail);
+        profilePhoneNumber = itemView.findViewById(R.id.profilePhoneNumber);
+        profileAddress = itemView.findViewById(R.id.profileAddress);
+        profileCNIC = itemView.findViewById(R.id.profileCNIC);
     }
 
 }

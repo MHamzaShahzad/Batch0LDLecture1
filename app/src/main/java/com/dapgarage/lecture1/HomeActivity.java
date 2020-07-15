@@ -221,4 +221,8 @@ public class HomeActivity extends AppCompatActivity {
     public void moveToTabActivity(View view) {
         startActivity(new Intent(HomeActivity.this, TabActivity.class));
     }
+
+    public void moveToProfileActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
+    }
 }

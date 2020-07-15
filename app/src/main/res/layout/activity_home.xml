@@ -87,6 +87,14 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/btnProfileActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="moveToProfileActivity"
+            android:text="User Profile"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
