@@ -50,6 +50,7 @@ public class TabActivity extends AppCompatActivity {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
                 Toast.makeText(TabActivity.this, tab.getText(), Toast.LENGTH_SHORT).show();
             }
 
