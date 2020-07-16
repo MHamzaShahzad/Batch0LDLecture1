@@ -3,13 +3,16 @@ package com.dapgarage.lecture1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dapgarage.lecture1.models.FirebaseDatabaseUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,14 +20,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UserProfileActivity extends AppCompatActivity {
+public class EditProfileActivity extends AppCompatActivity {
 
-
-    private static final String TAG = UserProfileActivity.class.getName();
-
+    private static final String TAG = EditProfileActivity.class.getName();
     @BindView(R.id.profileFirstName)
     TextView profileFirstName;
     @BindView(R.id.profileLastName)
@@ -45,17 +49,14 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_edit_profile);
         ButterKnife.bind(this);
 
-
         mAuth = FirebaseAuth.getInstance();
-
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference("User");
 
         loadUserFromFirebase();
-
     }
 
     private void loadUserFromFirebase(){
@@ -81,8 +82,34 @@ public class UserProfileActivity extends AppCompatActivity {
         });
     }
 
-    public void moveToEditProfile(View view) {
-        startActivity(new Intent(UserProfileActivity.this, EditProfileActivity.class));
-        finish();
+    public void updateAccount(View view) {
+
+        String email = profileEmail.getText().toString();
+
+        String firstName = profileFirstName.getText().toString();
+        String lastName = profileLastName.getText().toString();
+        String phoneNumber = profilePhoneNumber.getText().toString();
+        String cnic = profileCNIC.getText().toString();
+        String address = profileAddress.getText().toString();
+
+        FirebaseDatabaseUser user  = new FirebaseDatabaseUser(
+                firstName,
+                lastName,
+                email,
+                cnic,
+                phoneNumber,
+                address
+        );
+
+        mReference.child(mAuth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful())
+                    Toast.makeText(EditProfileActivity.this, "Data updated successfully!", Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(EditProfileActivity.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 }

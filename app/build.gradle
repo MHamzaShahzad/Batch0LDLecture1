@@ -5,12 +5,12 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
-        applicationId "com.dapgarage.lecture1"
+        applicationId 'com.dapgarage.lecture1'
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "an   droidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -42,9 +42,9 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.cardview:cardview:1.0.0"
 
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:2.0.24'
-
 
 }

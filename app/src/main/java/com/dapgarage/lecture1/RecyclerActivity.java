@@ -2,6 +2,7 @@ package com.dapgarage.lecture1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,6 +47,7 @@ public class RecyclerActivity extends AppCompatActivity {
         mReference = mDatabase.getReference("User");
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(RecyclerActivity.this);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(RecyclerActivity.this, 1);
 
         usersList = new ArrayList<>();
 
@@ -53,7 +55,7 @@ public class RecyclerActivity extends AppCompatActivity {
         recyclerAdapter = new RecyclerAdapter(usersList);
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
 
