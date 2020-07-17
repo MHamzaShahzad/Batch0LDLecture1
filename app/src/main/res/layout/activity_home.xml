@@ -95,6 +95,14 @@
             android:textAllCaps="false" />
 
         <Button
+            android:id="@+id/btnStorageActivity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="moveToStorageActivity"
+            android:text="Storage Activity"
+            android:textAllCaps="false" />
+
+        <Button
             android:id="@+id/btnLogout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -154,10 +154,11 @@ public class HomeActivity extends AppCompatActivity {
         requestMultiplePermissions();
 
         // More Optimized and flexible way
-       /* requestMultiplePermissionsOptimized(new String[] {
+        /*requestMultiplePermissionsOptimized(new String[] {
                 Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.READ_SMS
+                Manifest.permission.READ_SMS,
+                Manifest.permission.READ_EXTERNAL_STORAGE
         });*/
 
     }
@@ -169,6 +170,7 @@ public class HomeActivity extends AppCompatActivity {
         int camera_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.CAMERA);
         int location_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
         int read_sms_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_SMS);
+        int read_external_storage_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
 
         if (camera_permission == PackageManager.PERMISSION_DENIED) {
             permissionsList.add(Manifest.permission.CAMERA);
@@ -180,6 +182,10 @@ public class HomeActivity extends AppCompatActivity {
 
         if (read_sms_permission == PackageManager.PERMISSION_DENIED) {
             permissionsList.add(Manifest.permission.READ_SMS);
+        }
+
+        if (read_external_storage_permission == PackageManager.PERMISSION_DENIED) {
+            permissionsList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         }
 
         if (permissionsList.size() > 0) {
@@ -224,5 +230,9 @@ public class HomeActivity extends AppCompatActivity {
 
     public void moveToProfileActivity(View view) {
         startActivity(new Intent(HomeActivity.this, UserProfileActivity.class));
+    }
+
+    public void moveToStorageActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, StorageActivity.class));
     }
 }
