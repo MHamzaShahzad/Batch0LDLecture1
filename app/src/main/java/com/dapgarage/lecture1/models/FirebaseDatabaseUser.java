@@ -2,7 +2,7 @@ package com.dapgarage.lecture1.models;
 
 public class FirebaseDatabaseUser {
 
-    String firstName, lastName, email, cnic, phoneNumber, address;
+    String firstName, lastName, email, cnic, phoneNumber, address, profileImage;
 
     public FirebaseDatabaseUser() {
     }
@@ -38,5 +38,13 @@ public class FirebaseDatabaseUser {
 
     public String getAddress() {
         return address;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

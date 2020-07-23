@@ -74,7 +74,8 @@ public class HomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         Picasso.get()
-                .load("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg")
+                //.load("https://image.shutterstock.com/image-photo/bright-spring-view-cameo-island-260nw-1048185397.jpg")
+                .load("https://firebasestorage.googleapis.com/v0/b/lecture-1-5c025.appspot.com/o/profile_images%2F303854336?alt=media&token=a4aeb685-1859-47cb-a404-3e3306b54775")
                 .fit()
                 .centerInside()
                 .into(home_page_image);
@@ -234,5 +235,10 @@ public class HomeActivity extends AppCompatActivity {
 
     public void moveToStorageActivity(View view) {
         startActivity(new Intent(HomeActivity.this, StorageActivity.class));
+    }
+
+    public void moveToApiActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, ApiActivity.class));
+
     }
 }
