@@ -3,10 +3,12 @@ package com.dapgarage.lecture1;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +44,8 @@ public class EditProfileActivity extends AppCompatActivity {
     TextView profileCNIC;
     @BindView(R.id.profileAddress)
     TextView profileAddress;
+    @BindView(R.id.profileImageView)
+    ImageView profileImageView;
 
     FirebaseAuth mAuth;
     FirebaseDatabase mDatabase;
@@ -58,6 +63,18 @@ public class EditProfileActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mReference = mDatabase.getReference("User");
 
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EditProfileActivity.this, StorageActivity.class));
+            }
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadUserFromFirebase();
     }
 
@@ -75,6 +92,8 @@ public class EditProfileActivity extends AppCompatActivity {
                     profileAddress.setText(databaseUser.getAddress());
                     profilePhoneNumber.setText(databaseUser.getPhoneNumber());
                     profileImage = databaseUser.getProfileImage();
+                    if (profileImage != null && profileImage.length() > 0)
+                        Picasso.get().load(profileImage).centerInside().fit().into(profileImageView);
                 }
             }
 
