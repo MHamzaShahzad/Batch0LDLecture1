@@ -241,4 +241,8 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(new Intent(HomeActivity.this, ApiActivity.class));
 
     }
+
+    public void moveToWebViewActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, WebViewActivity.class));
+    }
 }
