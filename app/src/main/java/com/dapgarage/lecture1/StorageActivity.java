@@ -107,8 +107,7 @@ public class StorageActivity extends AppCompatActivity implements View.OnClickLi
                         Log.i(TAG, "onSuccess: " + uri);
                         // Set this image uri as profile_image field in relevant database user.
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        FirebaseDatabase.getInstance().getReference("User").child(user.getUid()).child("firstName").removeValue();
-                        FirebaseDatabase.getInstance().getReference("User").child(user.getUid()).child("profileImage").setValue(uri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        FirebaseDatabase.getInstance().getReference("User").child(user.getUid()).child("profileImage").setValue(uri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful())

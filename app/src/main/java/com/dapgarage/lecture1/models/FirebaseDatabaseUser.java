@@ -7,13 +7,14 @@ public class FirebaseDatabaseUser {
     public FirebaseDatabaseUser() {
     }
 
-    public FirebaseDatabaseUser(String firstName, String lastName, String email, String cnic, String phoneNumber, String address) {
+    public FirebaseDatabaseUser(String firstName, String lastName, String email, String cnic, String phoneNumber, String address, String profileImage) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.cnic = cnic;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.profileImage = profileImage;
     }
 
     public String getFirstName() {

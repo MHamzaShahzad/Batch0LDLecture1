@@ -90,7 +90,8 @@ public class CreateAccountActivity extends AppCompatActivity {
                                 email,
                                 cnic,
                                 phoneNumber,
-                                address
+                                address,
+                                ""
                         );
                         mReference.child(user.getUid()).setValue(databaseUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override

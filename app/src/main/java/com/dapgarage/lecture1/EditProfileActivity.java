@@ -46,6 +46,8 @@ public class EditProfileActivity extends AppCompatActivity {
     FirebaseDatabase mDatabase;
     DatabaseReference mReference;
 
+    private String profileImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +74,7 @@ public class EditProfileActivity extends AppCompatActivity {
                     profileCNIC.setText(databaseUser.getCnic());
                     profileAddress.setText(databaseUser.getAddress());
                     profilePhoneNumber.setText(databaseUser.getPhoneNumber());
+                    profileImage = databaseUser.getProfileImage();
                 }
             }
 
@@ -98,7 +101,8 @@ public class EditProfileActivity extends AppCompatActivity {
                 email,
                 cnic,
                 phoneNumber,
-                address
+                address,
+                profileImage
         );
 
         mReference.child(mAuth.getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
