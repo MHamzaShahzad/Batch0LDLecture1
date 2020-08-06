@@ -48,6 +48,13 @@
             android:text="Show Notification" />
 
         <Button
+            android:id="@+id/btnSendBroadcast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="sendLocalBroadcast"
+            android:text="Send Broadcast" />
+
+        <Button
             android:id="@+id/showDialogBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

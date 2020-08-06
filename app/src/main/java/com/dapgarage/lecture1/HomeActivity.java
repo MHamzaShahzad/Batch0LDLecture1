@@ -12,9 +12,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -24,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.dapgarage.lecture1.receivers.BluetoothBroadcastReceiver;
+import com.dapgarage.lecture1.receivers.LocalBroadCastReceiver;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
@@ -50,6 +54,10 @@ public class HomeActivity extends AppCompatActivity {
 
     @BindView(R.id.home_page_image)
     ImageView home_page_image;
+
+    LocalBroadCastReceiver receiver;
+    BluetoothBroadcastReceiver bluetoothBroadcastReceiver;
+    private static final String ACTION_LOCAL_BROADCAST = "android.intent.action.LOCAL_BROADCAST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,19 @@ public class HomeActivity extends AppCompatActivity {
                 .fit()
                 .centerInside()
                 .into(home_page_image);
+        receiver = new LocalBroadCastReceiver();
+        IntentFilter intentFilter = new IntentFilter(ACTION_LOCAL_BROADCAST);
+        registerReceiver(receiver, intentFilter);
+
+        bluetoothBroadcastReceiver = new BluetoothBroadcastReceiver();
+        registerReceiver(bluetoothBroadcastReceiver,  new IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(receiver);
+        unregisterReceiver(bluetoothBroadcastReceiver);
     }
 
     public void logout(View view) {
@@ -172,6 +193,7 @@ public class HomeActivity extends AppCompatActivity {
         int location_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.ACCESS_FINE_LOCATION);
         int read_sms_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_SMS);
         int read_external_storage_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int bluetooth_permission = ContextCompat.checkSelfPermission(HomeActivity.this, Manifest.permission.BLUETOOTH);
 
         if (camera_permission == PackageManager.PERMISSION_DENIED) {
             permissionsList.add(Manifest.permission.CAMERA);
@@ -187,6 +209,10 @@ public class HomeActivity extends AppCompatActivity {
 
         if (read_external_storage_permission == PackageManager.PERMISSION_DENIED) {
             permissionsList.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+        }
+
+        if (bluetooth_permission == PackageManager.PERMISSION_DENIED) {
+            permissionsList.add(Manifest.permission.BLUETOOTH);
         }
 
         if (permissionsList.size() > 0) {
@@ -244,5 +270,12 @@ public class HomeActivity extends AppCompatActivity {
 
     public void moveToWebViewActivity(View view) {
         startActivity(new Intent(HomeActivity.this, WebViewActivity.class));
+    }
+
+    public void sendLocalBroadcast(View view) {
+        Intent intent = new Intent(ACTION_LOCAL_BROADCAST);
+        intent.putExtra("title", notification_title.getText().toString());
+        intent.putExtra("description", notification_description.getText().toString());
+        sendBroadcast(intent);
     }
 }
