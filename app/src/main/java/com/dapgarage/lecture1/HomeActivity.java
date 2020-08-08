@@ -278,4 +278,8 @@ public class HomeActivity extends AppCompatActivity {
         intent.putExtra("description", notification_description.getText().toString());
         sendBroadcast(intent);
     }
+
+    public void moveToCRUDActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, ActivityCRUD.class));
+    }
 }

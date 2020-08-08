@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WebViewActivity"/>
+        <activity android:name=".ActivityCRUD"></activity>
+        <activity android:name=".WebViewActivity" />
         <activity android:name=".ApiActivity" />
         <activity android:name=".StorageActivity" />
         <activity android:name=".EditProfileActivity" />
@@ -40,16 +41,14 @@
 
         <receiver android:name=".receivers.LocalBroadCastReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.LOCAL_BROADCAST"/>
+                <action android:name="android.intent.action.LOCAL_BROADCAST" />
             </intent-filter>
         </receiver>
-
         <receiver android:name=".receivers.BluetoothBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.adapter.action.STATE_CHANGED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>
