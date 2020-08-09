@@ -109,12 +109,13 @@
             android:text="CRUD Activity"
             android:textAllCaps="false" />
 
+
         <Button
-            android:id="@+id/btnStorageActivity"
+            android:id="@+id/btnMapsActivity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="moveToStorageActivity"
-            android:text="Storage Activity"
+            android:onClick="moveToMapsActivity"
+            android:text="Maps Activity"
             android:textAllCaps="false" />
 
         <Button

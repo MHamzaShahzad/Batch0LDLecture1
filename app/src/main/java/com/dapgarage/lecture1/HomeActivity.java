@@ -282,4 +282,8 @@ public class HomeActivity extends AppCompatActivity {
     public void moveToCRUDActivity(View view) {
         startActivity(new Intent(HomeActivity.this, ActivityCRUD.class));
     }
+
+    public void moveToMapsActivity(View view) {
+        startActivity(new Intent(HomeActivity.this, MapsActivity.class));
+    }
 }
